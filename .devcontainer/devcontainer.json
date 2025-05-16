@@ -1,0 +1,51 @@
+{
+  "name": "Translate docs using LLM",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bookworm",
+  "containerEnv": {
+    "TZ": "Asia/Tokyo"
+  },
+  "runArgs": [
+    "--init",
+    "--name",
+    "doc-translator-with-llm",
+    "--env-file",
+    ".env"
+  ],
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/poetry:2": {}
+  },
+  "postCreateCommand": "/bin/sh ./.devcontainer/postCreateCommand.sh",
+  "mounts": [
+    "source=venv-doc-translator-with-llm,target=${containerWorkspaceFolder}/.venv,type=volume"
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.renderWhitespace": "all",
+        "python.defaultInterpreterPath": ".venv/bin/python",
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.organizeImports": true
+          }
+        },
+        "[json][jsonc]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll": true
+          }
+        }
+      },
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "njpwerner.autodocstring",
+        "KevinRose.vsc-python-indent",
+        "charliermarsh.ruff"
+      ]
+    }
+  }
+}
