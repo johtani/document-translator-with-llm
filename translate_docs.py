@@ -1,13 +1,13 @@
 # ruff: noqa
 import os
-from openai import OpenAI
+import litellm
 from concurrent.futures import ThreadPoolExecutor
 
 # import logging
 # logging.basicConfig(level=logging.INFO)
 # logging.getLogger("openai").setLevel(logging.DEBUG)
 
-OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-4.1")
+OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "openai/gpt-4.1")
 
 ENABLE_CODE_SNIPPET_EXCLUSION = True
 # gpt-4.5 needed this for better quality
@@ -20,9 +20,6 @@ languages = {
     "ja": "Japanese",
     # Add more languages here, e.g., "fr": "French"
 }
-
-# Initialize OpenAI client
-openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Define dictionaries for translation control
 do_not_translate = [
@@ -135,6 +132,17 @@ Follow the following workflow to translate the given markdown text data:
 """
 
 
+def output_text(response: litellm.Response) -> str:
+    texts: List[str] = []
+    for output in response.output:
+        if output.type == "message":
+            for content in output.content:
+                if content.type == "output_text":
+                    texts.append(content.text)
+
+    return "".join(texts)
+
+
 # Function to translate and save files
 def translate_file(file_path: str, target_path: str, lang_code: str) -> None:
     print(f"Translating {file_path} into a different language: {lang_code}")
@@ -179,20 +187,20 @@ def translate_file(file_path: str, target_path: str, lang_code: str) -> None:
     instructions = built_instructions(languages[lang_code], lang_code)
     for chunk in chunks:
         if OPENAI_MODEL.startswith("o"):
-            response = openai_client.responses.create(
+            response = litellm.responses(
                 model=OPENAI_MODEL,
                 instructions=instructions,
                 input=chunk,
             )
-            translated_content.append(response.output_text)
+            translated_content.append(output_text(response))
         else:
-            response = openai_client.responses.create(
+            response = litellm.responses(
                 model=OPENAI_MODEL,
                 instructions=instructions,
                 input=chunk,
                 temperature=0.0,
             )
-            translated_content.append(response.output_text)
+            translated_content.append(output_text(response))
 
     translated_text = "\n".join(translated_content)
     for idx, code_block in enumerate(code_blocks):
@@ -248,7 +256,8 @@ if __name__ == "__main__":
     # translate_single_source_file("docs/developers/weaviate/introduction.md")
     # translate_single_source_file("docs/developers/weaviate/concepts/index.md")
     # translate_single_source_file("docs/developers/weaviate/concepts/modules.md")
-    translate_single_source_file(
-        "docs/blog/2025-04-09-late-interaction-overview/index.mdx"
-    )
+    # translate_single_source_file(
+    # "docs/blog/2025-04-09-late-interaction-overview/index.mdx"
+    # )
+    translate_single_source_file("docs/developers/weaviate/quickstart/local.md")
     # main()
