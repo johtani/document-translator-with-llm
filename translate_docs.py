@@ -8,14 +8,15 @@ from instructions.docs_translation_instructions import DocsTranslationInstructio
 # logging.basicConfig(level=logging.INFO)
 # logging.getLogger("openai").setLevel(logging.DEBUG)
 
-OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "openai/gpt-4.1")
+OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "openai/o3")
 
 ENABLE_CODE_SNIPPET_EXCLUSION = True
 # gpt-4.5 needed this for better quality
-ENABLE_SMALL_CHUNK_TRANSLATION = False
+ENABLE_SMALL_CHUNK_TRANSLATION = True
 
 
 # Define the source and target directories
+# source_dir = "docs/developers/weaviate/concepts/"
 source_dir = "docs"
 languages = {
     "ja": "Japanese",
@@ -54,6 +55,10 @@ def translate_file(file_path: str, target_path: str, lang_code: str) -> None:
     code_blocks: list[str] = []
     code_block_chunks: list[str] = []
     for line in lines:
+        if ENABLE_CODE_SNIPPET_EXCLUSION is True and line.strip().startswith("import "):
+            code_blocks.append(line)
+            current_chunk.append(f"CODE_BLOCK_{(len(code_blocks) - 1):02}")
+            continue
         if (
             ENABLE_SMALL_CHUNK_TRANSLATION is True
             and len(current_chunk) >= 120  # required for gpt-4.5
@@ -148,13 +153,14 @@ def main():
 
 
 if __name__ == "__main__":
-    # translate_single_source_file("docs/developers/weaviate/introduction.md")
-    # translate_single_source_file("docs/developers/weaviate/concepts/index.md")
-    # translate_single_source_file("docs/developers/weaviate/concepts/modules.md")
-    # translate_single_source_file(
-    # "docs/blog/2025-04-09-late-interaction-overview/index.mdx"
-    # )
-    # translate_single_source_file("docs/developers/weaviate/quickstart/local.md")
-    translate_single_source_file("docs/developers/wcs/faq.mdx")
-    translate_single_source_file("docs/developers/academy/py/10_set_up_python.mdx")
+    translate_single_source_file("docs/developers/weaviate/introduction.md")
+    # translate_single_source_file("docs/developers/weaviate/concepts/search/index.md")
+    # translate_single_source_file("docs/developers/weaviate/concepts/vector-quantization.md")
+    # translate_single_source_file("docs/blog/2025-04-09-late-interaction-overview/index.mdx")
+    # translate_single_source_file("docs/developers/weaviate/installation/index.md")
+    translate_single_source_file("docs/developers/weaviate/quickstart/local.md")
+    translate_single_source_file("docs/developers/weaviate/quickstart/index.md")
+    # translate_single_source_file("docs/developers/weaviate/starter-guides/")
+    # translate_single_source_file("docs/developers/wcs/faq.mdx")
+    # translate_single_source_file("docs/developers/academy/py/10_set_up_python.mdx")
     # main()

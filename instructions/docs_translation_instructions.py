@@ -12,6 +12,10 @@ class DocsTranslationInstructions:
             "agents": "エージェント",
             "vector": "ベクトル",
             "inverted index": "転置インデックス",
+            "product quantization": "直積量子化",
+            "Retrieval augmented generation": "検索拡張生成",
+            "generative search": "生成検索",
+            "vectorizer": "ベクトライザー",
             # Add more Japanese mappings here
         },
         # Add more languages here
@@ -19,14 +23,9 @@ class DocsTranslationInstructions:
 
     eng_to_non_eng_instructions = {
         "common": [
-            "* The term 'examples' must be code examples when the page mentions the code examples in the repo, it can be translated as either 'code examples' or 'sample code'.",
-            "* The term 'primitives' can be translated as basic components.",
             "* When the terms 'instructions' and 'tools' are mentioned as API parameter names, they must be kept as is.",
-            "* The terms 'temperature', 'top_p', 'max_tokens', 'presence_penalty', 'frequency_penalty' as parameter names must be kept as is.",
         ],
         "ja": [
-            "* The term 'result' in the Runner guide context must be translated like 'execution results'",
-            "* The term 'raw' in 'raw response events' must be kept as is",
             "* You must consistently use polite wording such as です/ます rather than である/なのだ.",
             # Add more Japanese mappings here
         ],
@@ -65,6 +64,8 @@ You must return **only** the translated markdown. Do not include any commentary,
 - Do not change the markdown data structure, including the indentations.
 - Section titles starting with # or ## must be a noun form rather than a sentence.
 - Section titles must be translated except for the Do-Not-Translate list.
+- Keep the header each files as is, including the `---` lines.
+- Keep all html comments as is, including the `<!-- -->` tags.
 - Keep all placeholders such as `CODE_BLOCK_*` and `CODE_LINE_PREFIX` unchanged.
 - Treat the **Do‑Not‑Translate list** and **Term‑Specific list** as case‑insensitive; preserve the original casing you see.
 - Skip translation for:

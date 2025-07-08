@@ -12,7 +12,7 @@
     ".env"
   ],
   "features": {
-    "ghcr.io/devcontainers-contrib/features/poetry:2": {}
+    "ghcr.io/devcontainers-extra/features/poetry:2": {}
   },
   "postCreateCommand": "/bin/sh ./.devcontainer/postCreateCommand.sh",
   "mounts": [
