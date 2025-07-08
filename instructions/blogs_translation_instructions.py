@@ -2,8 +2,8 @@
 # Copyright (c) OpenAI
 # Licensed under the MIT License. See LICENSE file in the project root for full license information.
 
-# Offical Weaviate documentation translation instructions.
-class DocsTranslationInstructions:
+# Offical Weaviate blog translation instructions.
+class BlogsTranslationInstructions:
     # Define dictionaries for translation control
     do_not_translate = [
         "Weaviate",
@@ -52,7 +52,7 @@ class DocsTranslationInstructions:
         return f"""You are an expert technical translator.
 
 Your task: translate the markdown passed as a user input from English into {target_language}.
-The inputs are the official Weaviate documentation, and your translation outputs'll be used for serving the official {target_language} version of them. Thus, accuracy, clarity, and fidelity to the original are critical.
+The inputs are the official Weaviate blogs, and your translation outputs'll be used for serving the official {target_language} version of them. Thus, accuracy, clarity, and fidelity to the original are critical.
 
 ############################
 ##  OUTPUT REQUIREMENTS  ##

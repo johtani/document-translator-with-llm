@@ -1,4 +1,5 @@
 .env
-docs
+docs*
+blogs
 .venv
 */__pycache__

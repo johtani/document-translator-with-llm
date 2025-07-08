@@ -44,3 +44,8 @@ Dev Container（VS Code）環境も同梱されています。
 ## ライセンス
 
 このプロジェクトはMITライセンスです。
+
+## 謝辞
+
+本ツールは [OpenAI Python SDK](https://github.com/openai/openai-python) を利用しています。
+また、[openai-agents-python リポジトリの translate_docs.py](https://github.com/openai/openai-agents-python/blob/main/docs/scripts/translate_docs.py) を参考に作成しました。

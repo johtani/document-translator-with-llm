@@ -6,7 +6,7 @@
 import os
 import litellm
 from concurrent.futures import ThreadPoolExecutor
-from instructions.docs_translation_instructions import DocsTranslationInstructions
+from instructions.blogs_translation_instructions import BlogsTranslationInstructions
 
 # import logging
 # logging.basicConfig(level=logging.INFO)
@@ -20,7 +20,7 @@ ENABLE_SMALL_CHUNK_TRANSLATION = True
 
 
 # Define the source and target directories
-source_dir = "docs"
+source_dir = "blogs"
 languages = {
     "ja": "Japanese",
     # Add more languages here, e.g., "fr": "French"
@@ -28,7 +28,7 @@ languages = {
 
 
 def built_instructions(target_language: str, lang_code: str) -> str:
-    return DocsTranslationInstructions.build(target_language, lang_code)
+    return BlogsTranslationInstructions.build(target_language, lang_code)
 
 
 def output_text(response: litellm.Response) -> str:
@@ -156,14 +156,5 @@ def main():
 
 
 if __name__ == "__main__":
-    translate_single_source_file("docs/developers/weaviate/introduction.md")
-    # translate_single_source_file("docs/developers/weaviate/concepts/search/index.md")
-    # translate_single_source_file("docs/developers/weaviate/concepts/vector-quantization.md")
     # translate_single_source_file("docs/blog/2025-04-09-late-interaction-overview/index.mdx")
-    # translate_single_source_file("docs/developers/weaviate/installation/index.md")
-    translate_single_source_file("docs/developers/weaviate/quickstart/local.md")
-    translate_single_source_file("docs/developers/weaviate/quickstart/index.md")
-    # translate_single_source_file("docs/developers/weaviate/starter-guides/")
-    # translate_single_source_file("docs/developers/wcs/faq.mdx")
-    # translate_single_source_file("docs/developers/academy/py/10_set_up_python.mdx")
-    # main()
+    main()
