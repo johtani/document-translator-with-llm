@@ -117,10 +117,8 @@ def translate_file(file_path: str, target_path: str, lang_code: str) -> None:
 
 def translate_single_source_file(file_path: str) -> None:
     relative_path = os.path.relpath(file_path, source_dir)
-    if "ref/" in relative_path or not (
-        file_path.endswith(".md") or file_path.endswith(".mdx")
-    ):
-        print(f"Skipping {file_path} as it is not a markdown file.")
+    if "ref/" in relative_path or not (file_path.endswith(".jsx")):
+        print(f"Skipping {file_path} as it is not a jsx file.")
         return
 
     for lang_code in languages:
@@ -156,14 +154,5 @@ def main():
 
 
 if __name__ == "__main__":
-    translate_single_source_file("docs/developers/weaviate/introduction.md")
-    # translate_single_source_file("docs/developers/weaviate/concepts/search/index.md")
-    # translate_single_source_file("docs/developers/weaviate/concepts/vector-quantization.md")
-    # translate_single_source_file("docs/blog/2025-04-09-late-interaction-overview/index.mdx")
-    # translate_single_source_file("docs/developers/weaviate/installation/index.md")
-    translate_single_source_file("docs/developers/weaviate/quickstart/local.md")
-    translate_single_source_file("docs/developers/weaviate/quickstart/index.md")
-    # translate_single_source_file("docs/developers/weaviate/starter-guides/")
-    # translate_single_source_file("docs/developers/wcs/faq.mdx")
     # translate_single_source_file("docs/developers/academy/py/10_set_up_python.mdx")
-    # main()
+    main()
