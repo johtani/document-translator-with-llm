@@ -21,6 +21,7 @@ ENABLE_SMALL_CHUNK_TRANSLATION = True
 
 # Define the source and target directories
 source_dir = "docs"
+target_dir_template = "i18n/{lang}/docusaurus-plugin-content-docs/current"
 languages = {
     "ja": "Japanese",
     # Add more languages here, e.g., "fr": "French"
@@ -117,12 +118,12 @@ def translate_file(file_path: str, target_path: str, lang_code: str) -> None:
 
 def translate_single_source_file(file_path: str) -> None:
     relative_path = os.path.relpath(file_path, source_dir)
-    if "ref/" in relative_path or not (file_path.endswith(".jsx")):
-        print(f"Skipping {file_path} as it is not a jsx file.")
+    if not (file_path.endswith(".md") or file_path.endswith(".mdx")):
+        print(f"Skipping {file_path} as it is not a markdown file.")
         return
 
     for lang_code in languages:
-        target_dir = os.path.join(source_dir, lang_code)
+        target_dir = target_dir_template.format(lang=lang_code)
         target_path = os.path.join(target_dir, relative_path)
 
         # Ensure the target directory exists
@@ -155,4 +156,5 @@ def main():
 
 if __name__ == "__main__":
     # translate_single_source_file("docs/developers/academy/py/10_set_up_python.mdx")
+    # translate_single_source_file("docs/concepts/resources.md")
     main()

@@ -3,3 +3,4 @@ docs*
 blogs
 .venv
 */__pycache__
+i18n

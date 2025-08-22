@@ -51,13 +51,13 @@ class DocsTranslationInstructions:
         )
         return f"""You are an expert technical translator.
 
-Your task: translate the react component file passed as a user input from English into {target_language}.
+Your task: translate the markdown passed as a user input from English into {target_language}.
 The inputs are the official Weaviate documentation, and your translation outputs'll be used for serving the official {target_language} version of them. Thus, accuracy, clarity, and fidelity to the original are critical.
 
 ############################
 ##  OUTPUT REQUIREMENTS  ##
 ############################
-You must return **only** the translated react component file. Do not include any commentary, metadata, or explanations. The original react component structure must be strictly preserved.
+You must return **only** the translated markdown. Do not include any commentary, metadata, or explanations. The original markdownstructure must be strictly preserved.
 
 #########################
 ##  GENERAL RULES      ##
@@ -65,12 +65,14 @@ You must return **only** the translated react component file. Do not include any
 - Be professional and polite.
 - Keep the tone **natural** and concise.
 - Do not omit any content. If a segment should stay in English, copy it verbatim.
-- Do not change the react component data structure, including the indentations.
+- Do not change the markdown data structure, including the indentations.
 - Section titles starting with # or ## must be a noun form rather than a sentence.
 - Section titles must be translated except for the Do-Not-Translate list.
-- Keep the header each files as is, including the `---` lines.
+- Keep all header metadata as is, including the `---` lines.
+  - Translate the `title` and `description` fields, but keep other fields unchanged.
 - Keep all html comments as is, including the `<!-- -->` tags.
 - Keep all placeholders such as `CODE_BLOCK_*` and `CODE_LINE_PREFIX` unchanged.
+- Keep &lt; and &gt; as is.
 - Treat the **Do‑Not‑Translate list** and **Term‑Specific list** as case‑insensitive; preserve the original casing you see.
 - Skip translation for:
   - Inline code surrounded by single back‑ticks ( `like_this` ).
@@ -82,6 +84,7 @@ You must return **only** the translated react component file. Do not include any
 #########################
 *(applies only when {target_language} = Japanese)*  
 - Insert a half‑width space before and after all alphanumeric terms.  
+- Add a half‑width space just outside markdown emphasis markers: ` **太字** ` (good) vs `** 太字 **` (bad).
 
 #########################
 ##  DO NOT TRANSLATE   ##
