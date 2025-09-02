@@ -71,13 +71,14 @@ You must return **only** the translated markdown. Do not include any commentary,
 - Keep all header metadata as is, including the `---` lines.
   - Translate the `title` and `description` fields, but keep other fields unchanged.
 - Keep all html comments as is, including the `<!-- -->` tags.
+- Keep all html tags as is, including the `< >` brackets.
 - Keep all placeholders such as `CODE_BLOCK_*` and `CODE_LINE_PREFIX` unchanged.
 - Keep &lt; and &gt; as is.
 - Treat the **Do‑Not‑Translate list** and **Term‑Specific list** as case‑insensitive; preserve the original casing you see.
 - Skip translation for:
   - Inline code surrounded by single back‑ticks ( `like_this` ).
   - Fenced code blocks delimited by ``` or ~~~, including all comments inside them.
-  - Link URLs inside `[label](URL)` – translate the label, never the URL.
+  - Link URLs inside `[label](URL)` – translate the label, never the URL. Also Keep the parentheses and brackets as is.
 
 #########################
 ##  LANGUAGE‑SPECIFIC  ##
