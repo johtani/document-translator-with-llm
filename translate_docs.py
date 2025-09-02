@@ -59,7 +59,11 @@ def translate_file(file_path: str, target_path: str, lang_code: str) -> None:
     code_blocks: list[str] = []
     code_block_chunks: list[str] = []
     for line in lines:
-        if ENABLE_CODE_SNIPPET_EXCLUSION is True and line.strip().startswith("import "):
+        if (
+            ENABLE_CODE_SNIPPET_EXCLUSION is True
+            and line.strip().startswith("import ")
+            and not in_code_block
+        ):
             code_blocks.append(line)
             current_chunk.append(f"CODE_BLOCK_{(len(code_blocks) - 1):02}")
             continue
@@ -156,5 +160,6 @@ def main():
 
 if __name__ == "__main__":
     # translate_single_source_file("docs/developers/academy/py/10_set_up_python.mdx")
-    # translate_single_source_file("docs/concepts/resources.md")
+    # translate_single_source_file("docs/weaviate/tutorials/query.md")
+    # translate_single_source_file("docs/weaviate/concepts/search/vector-search.md")
     main()

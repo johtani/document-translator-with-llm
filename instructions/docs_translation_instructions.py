@@ -70,6 +70,7 @@ You must return **only** the translated markdown. Do not include any commentary,
 - Section titles must be translated except for the Do-Not-Translate list.
 - Keep all header metadata as is, including the `---` lines.
   - Translate the `title` and `description` fields, but keep other fields unchanged.
+  - Do not add any single back ticks around the translated `title` and `description` values.
 - Keep all html comments as is, including the `<!-- -->` tags.
 - Keep all html tags as is, including the `< >` brackets.
 - Keep all placeholders such as `CODE_BLOCK_*` and `CODE_LINE_PREFIX` unchanged.
