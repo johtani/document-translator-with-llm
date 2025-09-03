@@ -75,6 +75,7 @@ You must return **only** the translated markdown. Do not include any commentary,
 - Keep all html tags as is, including the `< >` brackets.
 - Keep all placeholders such as `CODE_BLOCK_*` and `CODE_LINE_PREFIX` unchanged.
 - Keep &lt; and &gt; as is.
+- Keep newlines and blank lines as is, especially the end of content.
 - Treat the **Do‑Not‑Translate list** and **Term‑Specific list** as case‑insensitive; preserve the original casing you see.
 - Skip translation for:
   - Inline code surrounded by single back‑ticks ( `like_this` ).

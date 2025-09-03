@@ -73,7 +73,7 @@ def translate_file(file_path: str, target_path: str, lang_code: str) -> None:
             and not in_code_block
             and line.startswith("#")
         ):
-            chunks.append("\n".join(current_chunk))
+            chunks.append("\n".join(current_chunk) + "\n")
             current_chunk = []
         if ENABLE_CODE_SNIPPET_EXCLUSION is True and line.strip().startswith("```"):
             code_block_chunks.append(line)
@@ -88,7 +88,7 @@ def translate_file(file_path: str, target_path: str, lang_code: str) -> None:
         else:
             current_chunk.append(line)
     if current_chunk:
-        chunks.append("\n".join(current_chunk))
+        chunks.append("\n".join(current_chunk) + "\n")
 
     # Translate each chunk separately and combine results
     translated_content: list[str] = []
@@ -100,7 +100,7 @@ def translate_file(file_path: str, target_path: str, lang_code: str) -> None:
                 instructions=instructions,
                 input=chunk,
             )
-            translated_content.append(output_text(response))
+            translated_content.append(output_text(response) + "\n")
         else:
             response = litellm.responses(
                 model=OPENAI_MODEL,
@@ -108,9 +108,9 @@ def translate_file(file_path: str, target_path: str, lang_code: str) -> None:
                 input=chunk,
                 temperature=0.0,
             )
-            translated_content.append(output_text(response))
+            translated_content.append(output_text(response) + "\n")
 
-    translated_text = "\n".join(translated_content)
+    translated_text = "\n".join(translated_content) + "\n"
     for idx, code_block in enumerate(code_blocks):
         translated_text = translated_text.replace(f"CODE_BLOCK_{idx:02}", code_block)
 
